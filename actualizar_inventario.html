@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actualizar Inventario</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f4f4f4;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        button {
+            background: #e74c3c;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px 0;
+            display: block;
+            width: 100%;
+        }
+        button:hover {
+            background: #c0392b;
+        }
+        .info {
+            background: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 Actualizar Inventario de Filtros</h1>
+        
+        <div class="info">
+            <h3>Problema:</h3>
+            <p>Los filtros no aparecen en la página porque el navegador tiene datos antiguos guardados.</p>
+        </div>
+
+        <div class="info">
+            <h3>Solución:</h3>
+            <p>Haz clic en el botón de abajo para forzar la actualización del inventario con los datos más recientes.</p>
+        </div>
+
+        <button onclick="actualizarInventario()">🔄 Actualizar Inventario Ahora</button>
+        
+        <button onclick="verInventario()">👁️ Ver Inventario Actual</button>
+        
+        <button onclick="irAFiltros()">➡️ Ir a Página de Filtros</button>
+
+        <div id="resultado" style="margin-top: 20px; padding: 15px; background: #d5f4e6; border-radius: 5px; display: none;">
+            <h3>✅ ¡Inventario Actualizado!</h3>
+            <p>Ahora puedes ir a la página de filtros y verás todos los datos correctos.</p>
+        </div>
+
+        <div id="inventario" style="margin-top: 20px; padding: 15px; background: #fff3cd; border-radius: 5px; display: none;">
+            <h3>📋 Inventario Actual:</h3>
+            <pre id="inventario-content"></pre>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        function actualizarInventario() {
+            try {
+                // Forzar actualización del inventario
+                forceUpdateInventory();
+                
+                // Mostrar mensaje de éxito
+                document.getElementById('resultado').style.display = 'block';
+                
+                // Ocultar inventario si estaba visible
+                document.getElementById('inventario').style.display = 'none';
+                
+                console.log('Inventario actualizado correctamente');
+            } catch (error) {
+                alert('Error al actualizar inventario: ' + error.message);
+            }
+        }
+
+        function verInventario() {
+            try {
+                const inv = JSON.parse(localStorage.getItem('inventario_filtros') || '[]');
+                const filtros = inv.filter(item => {
+                    const tipo = (item.tipo || '').toLowerCase();
+                    return tipo === 'aceite' || tipo === 'aire' || tipo === 'habitaculo' || tipo === 'combustible';
+                });
+                
+                document.getElementById('inventario-content').textContent = JSON.stringify(filtros, null, 2);
+                document.getElementById('inventario').style.display = 'block';
+            } catch (error) {
+                alert('Error al mostrar inventario: ' + error.message);
+            }
+        }
+
+        function irAFiltros() {
+            window.location.href = 'filtros.html';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo - Descarga PDF de Filtros</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #2980b9;
+            color: white;
+            padding: 50px;
+            text-align: center;
+        }
+        .demo-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: linear-gradient(145deg, #3498db, #2980b9);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        .feature-box {
+            background: rgba(255,255,255,0.1);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 25px 0;
+            border-left: 5px solid #fff;
+        }
+        .pdf-preview {
+            background: rgba(0,0,0,0.2);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+        }
+        .button-demo {
+            background: linear-gradient(145deg, #27ae60, #229954);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+        .button-demo:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .content-item {
+            background: rgba(0,0,0,0.2);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        a {
+            display: inline-block;
+            background: #fff;
+            color: #2980b9;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: bold;
+            margin: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        a:hover {
+            background: #f8f9fa;
+            transform: translateY(-2px);
+        }
+        .step-list {
+            text-align: left;
+            max-width: 600px;
+            margin: 20px auto;
+        }
+        .step-list li {
+            margin: 10px 0;
+            padding: 10px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <h1>📄 Nueva Funcionalidad: Descarga PDF de Filtros</h1>
+        
+        <div class="feature-box">
+            <h2>🎯 Funcionalidad Implementada</h2>
+            <p>Ahora puedes generar y descargar un PDF completo con todos los filtros del inventario, organizados por tipo, con referencias y cantidades en tiempo real.</p>
+            
+            <button class="button-demo">📄 Descargar PDF</button>
+        </div>
+
+        <div class="content-grid">
+            <div class="content-item">
+                <h3>📊 Contenido del PDF</h3>
+                <ul style="text-align: left;">
+                    <li>✓ Título con logo de empresa</li>
+                    <li>✓ Fecha de generación</li>
+                    <li>✓ Tabla organizada por tipos</li>
+                    <li>✓ Referencias específicas</li>
+                    <li>✓ Cantidades actuales</li>
+                    <li>✓ Descripciones</li>
+                    <li>✓ Resumen de totales</li>
+                </ul>
+            </div>
+            
+            <div class="content-item">
+                <h3>🌍 Multiidioma</h3>
+                <ul style="text-align: left;">
+                    <li>🇪🇸 Español completo</li>
+                    <li>🇬🇧 English completo</li>
+                    <li>🇮🇹 Italiano completo</li>
+                    <li>📅 Fechas localizadas</li>
+                    <li>🏷️ Etiquetas traducidas</li>
+                </ul>
+            </div>
+            
+            <div class="content-item">
+                <h3>🎨 Diseño Profesional</h3>
+                <ul style="text-align: left;">
+                    <li>📋 Tabla organizada</li>
+                    <li>🎨 Colores corporativos</li>
+                    <li>📄 Paginación automática</li>
+                    <li>🏢 Pie de página con empresa</li>
+                    <li>📊 Resumen estadístico</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="pdf-preview">
+            <h3>📋 Vista Previa del Contenido PDF:</h3>
+            <div style="text-align: left; font-size: 0.9em;">
+                <strong>INVENTARIO DE FILTROS - ALQUIBER RENTING</strong><br>
+                Generado el: 20/10/2025<br><br>
+                
+                <strong>FILTROS DE ACEITE</strong><br>
+                ZA001 ........................ 8 unidades<br>
+                LA126 ........................ 1 unidad<br>
+                15324013 ..................... 9 unidades<br><br>
+                
+                <strong>FILTROS DE AIRE</strong><br>
+                PA2852 ....................... 7 unidades<br>
+                PA285 GRANDE ................. 3 unidades<br><br>
+                
+                <strong>PASTILLAS DE FRENO</strong><br>
+                822-1003-0 ................... 1 unidad<br><br>
+                
+                <strong>RESUMEN TOTAL</strong><br>
+                Total elementos: 52 unidades<br>
+                Filtros de Aceite: 22<br>
+                Filtros de Aire: 12<br>
+                Pastillas de Freno: 1<br>
+            </div>
+        </div>
+
+        <div class="feature-box">
+            <h3>🚀 Cómo Usar la Nueva Funcionalidad:</h3>
+            <ol class="step-list">
+                <li><strong>Ve a filtros.html</strong> - La página principal de filtros</li>
+                <li><strong>Busca el botón verde</strong> - "📄 Descargar PDF"</li>
+                <li><strong>Haz clic en el botón</strong> - Se generará automáticamente</li>
+                <li><strong>El PDF se descarga</strong> - Con nombre: inventario_filtros_YYYY-MM-DD.pdf</li>
+                <li><strong>Abre el archivo</strong> - Verás todos los filtros organizados</li>
+            </ol>
+        </div>
+
+        <div class="content-grid">
+            <div class="content-item">
+                <h3>⚡ Características Técnicas</h3>
+                <ul style="text-align: left;">
+                    <li>📱 Funciona en móviles</li>
+                    <li>🔄 Datos en tiempo real</li>
+                    <li>📊 Ordenado automáticamente</li>
+                    <li>💾 Descarga instantánea</li>
+                    <li>🎯 Sin necesidad de internet</li>
+                </ul>
+            </div>
+            
+            <div class="content-item">
+                <h3>📈 Casos de Uso</h3>
+                <ul style="text-align: left;">
+                    <li>📋 Inventarios periódicos</li>
+                    <li>📊 Reportes para gerencia</li>
+                    <li>🔍 Auditorías de stock</li>
+                    <li>📤 Envío a proveedores</li>
+                    <li>💼 Presentaciones</li>
+                </ul>
+            </div>
+        </div>
+
+        <div style="margin-top: 30px;">
+            <a href="filtros.html">🔍 Probar Descarga PDF</a>
+            <a href="index.html">🏠 Dashboard Principal</a>
+        </div>
+
+        <div style="margin-top: 20px; font-size: 0.9em; opacity: 0.8;">
+            💡 <strong>Tip:</strong> El PDF se genera con los datos actuales del inventario, incluyendo todas las referencias y cantidades más recientes.
+        </div>
+    </div>
+</body>
+</html>

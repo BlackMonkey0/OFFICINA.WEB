@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solución - Pastillas de Freno</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #c0392b;
+            color: white;
+            padding: 50px;
+            text-align: center;
+        }
+        .solution-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: linear-gradient(145deg, #e74c3c, #c0392b);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        .problem-box {
+            background: rgba(0,0,0,0.3);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #f39c12;
+        }
+        .solution-box {
+            background: rgba(39, 174, 96, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #27ae60;
+        }
+        .step {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            text-align: left;
+        }
+        .step-number {
+            background: #3498db;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+        .code-box {
+            background: #2c3e50;
+            color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            border: 1px solid #34495e;
+        }
+        .quick-fix {
+            background: #27ae60;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-size: 1.1em;
+        }
+        a {
+            display: inline-block;
+            background: #fff;
+            color: #c0392b;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: bold;
+            margin: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        a:hover {
+            background: #f8f9fa;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="solution-container">
+        <h1>🔧 Solución: Pastillas de Freno No Aparecen</h1>
+        
+        <div class="problem-box">
+            <h2>❌ Problema Identificado</h2>
+            <p>Las pastillas de freno con referencia <strong>822-1003-0</strong> no aparecen en el gráfico porque el navegador está usando datos antiguos del localStorage.</p>
+        </div>
+
+        <div class="solution-box">
+            <h2>✅ Solución Implementada</h2>
+            <p>He modificado el código para que <strong>siempre actualice</strong> el inventario con los datos más recientes, incluyendo las pastillas de freno.</p>
+        </div>
+
+        <div class="quick-fix">
+            <h3>🚀 Solución Rápida (Elige una opción):</h3>
+        </div>
+
+        <div class="step">
+            <span class="step-number">1</span>
+            <strong>Opción Automática:</strong> Simplemente refresca la página filtros.html (F5) - El sistema ahora fuerza la actualización automáticamente.
+        </div>
+
+        <div class="step">
+            <span class="step-number">2</span>
+            <strong>Opción Manual:</strong> Abre filtros.html, presiona F12, ve a "Console" y ejecuta:
+            <div class="code-box">resetInventoryWithCurrentData()</div>
+        </div>
+
+        <div class="step">
+            <span class="step-number">3</span>
+            <strong>Opción Limpieza:</strong> En filtros.html, presiona F12, ve a "Application" → "Local Storage" → borra la clave "inventario_filtros" y refresca.
+        </div>
+
+        <div class="solution-box">
+            <h3>📊 Después de la Solución Verás:</h3>
+            <ul style="text-align: left; max-width: 500px; margin: 20px auto;">
+                <li>✓ Opción "Pastillas de freno" en el selector</li>
+                <li>✓ Referencia 822-1003-0 en el gráfico</li>
+                <li>✓ Total: 1 unidad</li>
+                <li>✓ Funciona en modal grande</li>
+                <li>✓ Traducciones en 3 idiomas</li>
+            </ul>
+        </div>
+
+        <div class="problem-box">
+            <h3>🔍 Para Verificar que Funciona:</h3>
+            <ol style="text-align: left; max-width: 500px; margin: 20px auto;">
+                <li>Ve a <strong>filtros.html</strong></li>
+                <li>Busca el selector "Filtrar por tipo"</li>
+                <li>Selecciona <strong>"Pastillas de freno"</strong></li>
+                <li>Deberías ver: <strong>Total (Pastillas de freno): 1</strong></li>
+                <li>El gráfico mostrará la referencia <strong>822-1003-0</strong></li>
+            </ol>
+        </div>
+
+        <div style="margin-top: 30px;">
+            <a href="filtros.html">🔍 Probar Filtros Ahora</a>
+            <a href="actualizar_inventario.html">🔄 Forzar Actualización</a>
+        </div>
+
+        <div style="margin-top: 20px; font-size: 0.9em; opacity: 0.8;">
+            💡 <strong>Nota:</strong> Una vez que veas las pastillas de freno funcionando, puedes restaurar el comportamiento normal del sistema.
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Mostrar estado actual del inventario
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                try {
+                    const inv = JSON.parse(localStorage.getItem('inventario_filtros') || '[]');
+                    const pastillas = inv.filter(item => item.tipo === 'pastillas_freno');
+                    
+                    if (pastillas.length > 0) {
+                        console.log('✅ Pastillas de freno encontradas:', pastillas);
+                        const status = document.createElement('div');
+                        status.style.cssText = 'position:fixed; top:20px; right:20px; background:#27ae60; color:white; padding:15px; border-radius:8px; z-index:9999;';
+                        status.innerHTML = `✅ Pastillas detectadas: ${pastillas[0].referencia}`;
+                        document.body.appendChild(status);
+                        setTimeout(() => status.remove(), 5000);
+                    } else {
+                        console.log('❌ Pastillas de freno NO encontradas en inventario');
+                    }
+                } catch(e) {
+                    console.error('Error verificando inventario:', e);
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

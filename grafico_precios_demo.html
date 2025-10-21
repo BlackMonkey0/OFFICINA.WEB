@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gráfico Lineal de Precios - Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 50px;
+            text-align: center;
+            margin: 0;
+        }
+        .demo-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.1);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+        }
+        .chart-preview {
+            background: rgba(255,255,255,0.15);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            border-left: 5px solid #fff;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        .feature-card {
+            background: rgba(255,255,255,0.1);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: left;
+        }
+        .price-example {
+            background: rgba(0,0,0,0.2);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+        }
+        .demo-button {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .chart-button {
+            background: linear-gradient(145deg, #9b59b6, #8e44ad);
+            color: white;
+        }
+        .main-button {
+            background: linear-gradient(145deg, #e74c3c, #c0392b);
+            color: white;
+        }
+        .demo-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+        }
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .stat-item {
+            background: rgba(0,0,0,0.2);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #f39c12;
+        }
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <h1>📈 Gráfico Lineal de Precios Implementado</h1>
+        <p style="font-size: 1.2em; opacity: 0.9; margin-bottom: 30px;">
+            Nuevo gráfico lineal que muestra los precios promedio por cada tipo de filtro
+        </p>
+
+        <div class="chart-preview">
+            <h2>📊 Vista Previa del Gráfico</h2>
+            <div style="background: rgba(0,0,0,0.3); padding: 20px; border-radius: 10px; margin: 20px 0;">
+                <div style="font-size: 1.1em; margin-bottom: 15px;">
+                    📈 <strong>Gráfico Lineal de Precios (500x300px)</strong>
+                </div>
+                <div style="display: flex; justify-content: space-around; align-items: end; height: 150px; background: rgba(255,255,255,0.1); border-radius: 8px; padding: 20px;">
+                    <div style="text-align: center;">
+                        <div style="width: 20px; height: 60px; background: #e74c3c; margin: 0 auto 10px; border-radius: 4px;"></div>
+                        <div style="font-size: 0.8em;">Aceite<br>€14.50</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="width: 20px; height: 90px; background: #3498db; margin: 0 auto 10px; border-radius: 4px;"></div>
+                        <div style="font-size: 0.8em;">Aire<br>€22.50</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="width: 20px; height: 110px; background: #27ae60; margin: 0 auto 10px; border-radius: 4px;"></div>
+                        <div style="font-size: 0.8em;">Habitáculo<br>€24.00</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="width: 20px; height: 80px; background: #f39c12; margin: 0 auto 10px; border-radius: 4px;"></div>
+                        <div style="font-size: 0.8em;">Combustible<br>€18.00</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="width: 20px; height: 140px; background: #9b59b6; margin: 0 auto 10px; border-radius: 4px;"></div>
+                        <div style="font-size: 0.8em;">Pastillas<br>€45.90</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h3>📈 Características del Gráfico</h3>
+                <ul>
+                    <li>✅ <strong>Gráfico lineal</strong> con Chart.js</li>
+                    <li>✅ <strong>Tamaño optimizado</strong> 500x300px</li>
+                    <li>✅ <strong>Efectos 3D</strong> consistentes</li>
+                    <li>✅ <strong>Animaciones suaves</strong> al cargar</li>
+                    <li>✅ <strong>Tooltips informativos</strong> al hover</li>
+                    <li>✅ <strong>Colores diferenciados</strong> por tipo</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h3>🔄 Funcionalidades Interactivas</h3>
+                <ul>
+                    <li>📊 <strong>Toggle Líneas/Barras</strong> con un clic</li>
+                    <li>🔄 <strong>Actualización automática</strong> al cambiar precios</li>
+                    <li>📈 <strong>Cálculo de promedios</strong> en tiempo real</li>
+                    <li>📊 <strong>Estadísticas integradas</strong> en leyenda</li>
+                    <li>🌍 <strong>Multiidioma completo</strong></li>
+                    <li>💾 <strong>Sincronización</strong> con editor de precios</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="stats-row">
+            <div class="stat-item">
+                <div class="stat-value">€24.56</div>
+                <div class="stat-label">Precio Promedio General</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">€45.90</div>
+                <div class="stat-label">Más Caro (Pastillas)</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">€14.50</div>
+                <div class="stat-label">Más Barato (Aceite)</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">5</div>
+                <div class="stat-label">Tipos de Filtros</div>
+            </div>
+        </div>
+
+        <div style="background: rgba(0,0,0,0.2); padding: 20px; border-radius: 10px; margin: 30px 0;">
+            <h3>🎯 Datos Mostrados en el Gráfico:</h3>
+            <div class="price-example">
+                📈 PRECIOS PROMEDIO POR TIPO:<br><br>
+                🛢️  Filtros de Aceite .......... €14.50<br>
+                🌬️  Filtros de Aire ............ €22.50<br>
+                🏠  Filtros de Habitáculo ....... €24.00<br>
+                ⛽  Filtros de Combustible ...... €18.00<br>
+                🔧  Pastillas de Freno .......... €45.90<br><br>
+                📊 Promedio General: €24.56<br>
+                📈 Rango: €14.50 - €45.90
+            </div>
+        </div>
+
+        <div style="background: rgba(39, 174, 96, 0.2); padding: 20px; border-radius: 10px; margin: 30px 0;">
+            <h3>🚀 Cómo Ver el Nuevo Gráfico:</h3>
+            <ol style="text-align: left; max-width: 600px; margin: 0 auto;">
+                <li>Ve a <strong>filtros.html</strong></li>
+                <li>Desplázate hacia abajo hasta <strong>"Precios Promedio por Tipo"</strong></li>
+                <li>Verás el <strong>gráfico lineal</strong> con los precios de cada tipo</li>
+                <li>Usa el botón <strong>"📊 Cambiar a Barras"</strong> para alternar vista</li>
+                <li>La <strong>leyenda lateral</strong> muestra detalles y estadísticas</li>
+                <li>Los precios se <strong>actualizan automáticamente</strong> al editarlos</li>
+            </ol>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <a href="filtros.html" class="demo-button chart-button">📈 Ver Gráfico Lineal</a>
+            <a href="filtros.html" class="demo-button main-button">💰 Gestión Costos</a>
+            <a href="index.html" class="demo-button main-button">🏠 Dashboard</a>
+        </div>
+
+        <div style="margin-top: 30px; font-size: 0.9em; opacity: 0.8;">
+            🎨 <strong>¡Gráfico lineal profesional implementado!</strong> Ahora tienes una visualización clara de cómo se comparan los precios entre los diferentes tipos de filtros.
+        </div>
+    </div>
+</body>
+</html>

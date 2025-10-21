@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Traducciones Filtros</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        .test-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: linear-gradient(145deg, #34495e, #2c3e50);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+        .language-selector {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .language-selector button {
+            margin: 0 10px;
+            padding: 10px 20px;
+            background: linear-gradient(145deg, #e74c3c, #c0392b);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .language-selector button:hover {
+            background: linear-gradient(145deg, #f39c12, #e67e22);
+        }
+        .language-selector button.active {
+            background: linear-gradient(145deg, #27ae60, #229954);
+        }
+        .demo-section {
+            background: rgba(255,255,255,0.1);
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #e74c3c;
+        }
+        .demo-elements {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+        .demo-element {
+            background: rgba(0,0,0,0.2);
+            padding: 15px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🌍 Test de Traducciones - Página de Filtros</h1>
+        
+        <div class="language-selector">
+            <h3>Selecciona idioma para probar:</h3>
+            <button id="btn-es" onclick="testLanguage('es')" class="active">🇪🇸 Español</button>
+            <button id="btn-en" onclick="testLanguage('en')">🇬🇧 English</button>
+            <button id="btn-it" onclick="testLanguage('it')">🇮🇹 Italiano</button>
+        </div>
+
+        <div class="demo-section">
+            <h3>📄 Elementos de la página que se traducen:</h3>
+            <div class="demo-elements">
+                <div class="demo-element">
+                    <h4>Título de página:</h4>
+                    <span data-i18n="page_title">Filtros - Alquiber</span>
+                </div>
+                
+                <div class="demo-element">
+                    <h4>Buscador:</h4>
+                    <input type="search" data-i18n-placeholder="search_placeholder" placeholder="Buscar marca o modelo..." style="width:100%; padding:8px;">
+                </div>
+                
+                <div class="demo-element">
+                    <h4>Título del gráfico:</h4>
+                    <h3 data-i18n="chart_title">Filtros por referencia</h3>
+                </div>
+                
+                <div class="demo-element">
+                    <h4>Etiqueta del filtro:</h4>
+                    <label data-i18n="filter_label">Filtrar por tipo:</label>
+                </div>
+                
+                <div class="demo-element">
+                    <h4>Opciones del selector:</h4>
+                    <select style="width:100%; padding:8px;">
+                        <option data-i18n="filter_all">Todos</option>
+                        <option data-i18n="filter_oil">Aceite</option>
+                        <option data-i18n="filter_air">Aire</option>
+                        <option data-i18n="filter_cabin">Habitáculo</option>
+                        <option data-i18n="filter_fuel">Combustible</option>
+                    </select>
+                </div>
+                
+                <div class="demo-element">
+                    <h4>Etiqueta de total:</h4>
+                    <span data-i18n="total_label">Total</span>: 25
+                </div>
+                
+                <div class="demo-element">
+                    <h4>Tooltip del gráfico:</h4>
+                    <div style="background:rgba(0,0,0,0.7); padding:8px; border-radius:4px; display:inline-block;">
+                        <span data-i18n="chart_expand_hint">🔍 Clic para ampliar</span>
+                    </div>
+                </div>
+                
+                <div class="demo-element">
+                    <h4>Título del modal:</h4>
+                    <span data-i18n="modal_chart_title">Gráfico de Filtros</span>
+                </div>
+                
+                <div class="demo-element">
+                    <h4>Botón volver:</h4>
+                    <button data-i18n="btn_volver">Volver</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h3>✅ Funcionalidades implementadas:</h3>
+            <ul>
+                <li><strong>Detección automática:</strong> La página detecta el idioma guardado en localStorage</li>
+                <li><strong>Traducción completa:</strong> Todos los textos, placeholders y tooltips se traducen</li>
+                <li><strong>Sincronización:</strong> El idioma se mantiene entre páginas</li>
+                <li><strong>Opciones del select:</strong> Las opciones del desplegable se traducen correctamente</li>
+                <li><strong>Totales dinámicos:</strong> Los totales del gráfico se muestran en el idioma seleccionado</li>
+                <li><strong>Modal traducido:</strong> El modal del gráfico grande también se traduce</li>
+            </ul>
+        </div>
+
+        <div class="demo-section">
+            <h3>🎯 Cómo probar:</h3>
+            <ol>
+                <li><strong>Cambia idioma aquí:</strong> Usa los botones de arriba para cambiar idioma</li>
+                <li><strong>Ve a la página principal:</strong> Cambia el idioma en index.html</li>
+                <li><strong>Abre filtros.html:</strong> Verás que se aplica automáticamente el idioma seleccionado</li>
+                <li><strong>Verifica todos los elementos:</strong> Título, buscador, gráfico, modal, etc.</li>
+            </ol>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <a href="index.html" style="display: inline-block; background: linear-gradient(145deg, #3498db, #2980b9); color: white; padding: 15px 30px; text-decoration: none; border-radius: 10px; font-weight: bold; margin: 0 10px;">
+                🏠 Ir a Página Principal
+            </a>
+            <a href="filtros.html" style="display: inline-block; background: linear-gradient(145deg, #e74c3c, #c0392b); color: white; padding: 15px 30px; text-decoration: none; border-radius: 10px; font-weight: bold; margin: 0 10px;">
+                🔍 Ir a Filtros
+            </a>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        let currentLang = 'es';
+        
+        function testLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('preferredLang', lang);
+            
+            // Actualizar botones activos
+            document.querySelectorAll('.language-selector button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.getElementById(`btn-${lang}`).classList.add('active');
+            
+            // Aplicar traducciones
+            try {
+                document.documentElement.lang = lang;
+                applyTranslations(lang);
+                console.log(`Idioma cambiado a: ${lang}`);
+            } catch(e) {
+                console.error('Error aplicando traducciones:', e);
+            }
+        }
+        
+        // Inicializar con idioma guardado
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedLang = localStorage.getItem('preferredLang') || 'es';
+            testLanguage(savedLang);
+        });
+    </script>
+</body>
+</html>

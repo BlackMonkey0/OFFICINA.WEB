@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editor de Precios - Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 50px;
+            text-align: center;
+            margin: 0;
+        }
+        .demo-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.1);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        .feature-card {
+            background: rgba(255,255,255,0.15);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: left;
+            border-left: 5px solid #fff;
+        }
+        .demo-table {
+            background: rgba(255,255,255,0.9);
+            color: #2c3e50;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+        .demo-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .demo-table th, .demo-table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        .demo-table th {
+            background: #34495e;
+            color: white;
+        }
+        .price-input {
+            width: 80px;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            text-align: center;
+        }
+        .demo-button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 8px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .edit-button {
+            background: linear-gradient(145deg, #3498db, #2980b9);
+            color: white;
+        }
+        .save-button {
+            background: linear-gradient(145deg, #27ae60, #229954);
+            color: white;
+        }
+        .export-button {
+            background: linear-gradient(145deg, #f39c12, #e67e22);
+            color: white;
+        }
+        .main-button {
+            background: linear-gradient(145deg, #e74c3c, #c0392b);
+            color: white;
+        }
+        .demo-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+        .step-list {
+            text-align: left;
+            background: rgba(0,0,0,0.2);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .step-list li {
+            margin: 10px 0;
+            padding: 8px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 5px;
+        }
+        .highlight {
+            background: rgba(255,255,0,0.3);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <h1>✏️ Editor de Precios Implementado</h1>
+        <p style="font-size: 1.2em; opacity: 0.9; margin-bottom: 30px;">
+            Ahora puedes editar y gestionar los precios de cada filtro de forma individual y dinámica
+        </p>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h3>🎯 Funcionalidades del Editor</h3>
+                <ul>
+                    <li>✅ <strong>Edición individual</strong> de cada precio</li>
+                    <li>✅ <strong>Stock mínimo configurable</strong> por filtro</li>
+                    <li>✅ <strong>Actualización en tiempo real</strong></li>
+                    <li>✅ <strong>Guardado automático</strong> al cambiar</li>
+                    <li>✅ <strong>Feedback visual</strong> de confirmación</li>
+                    <li>✅ <strong>Restauración</strong> a valores por defecto</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h3>📊 Funciones Adicionales</h3>
+                <ul>
+                    <li>📈 <strong>Exportar a CSV</strong> todos los precios</li>
+                    <li>💡 <strong>Consejos de precios</strong> por tipo</li>
+                    <li>🔄 <strong>Sincronización automática</strong> con costos</li>
+                    <li>🌍 <strong>Multiidioma</strong> completo</li>
+                    <li>💾 <strong>Persistencia</strong> en localStorage</li>
+                    <li>⚡ <strong>Interfaz intuitiva</strong> tipo tabla</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="demo-table">
+            <h3>📋 Vista Previa del Editor de Precios</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Referencia</th>
+                        <th>Tipo</th>
+                        <th>Precio €</th>
+                        <th>Stock Mínimo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>ZA001</strong></td>
+                        <td>aceite</td>
+                        <td><input type="number" class="price-input" value="12.50" readonly></td>
+                        <td><input type="number" class="price-input" value="5" readonly style="width: 60px;"></td>
+                    </tr>
+                    <tr>
+                        <td><strong>LA126</strong></td>
+                        <td>aceite</td>
+                        <td><input type="number" class="price-input" value="16.90" readonly></td>
+                        <td><input type="number" class="price-input" value="2" readonly style="width: 60px;"></td>
+                    </tr>
+                    <tr>
+                        <td><strong>PA2852</strong></td>
+                        <td>aire</td>
+                        <td><input type="number" class="price-input" value="22.50" readonly></td>
+                        <td><input type="number" class="price-input" value="4" readonly style="width: 60px;"></td>
+                    </tr>
+                    <tr>
+                        <td><strong>822-1003-0</strong></td>
+                        <td>pastillas_freno</td>
+                        <td><input type="number" class="price-input" value="45.90" readonly></td>
+                        <td><input type="number" class="price-input" value="2" readonly style="width: 60px;"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div style="margin-top: 15px; text-align: center;">
+                <button class="demo-button save-button">💾 Guardar Todos</button>
+                <button class="demo-button export-button">📊 Exportar CSV</button>
+                <button class="demo-button edit-button">🔄 Restaurar</button>
+            </div>
+        </div>
+
+        <div class="step-list">
+            <h3>🚀 Cómo Usar el Editor de Precios:</h3>
+            <ol>
+                <li>Ve a <strong>filtros.html</strong> y haz clic en <span class="highlight">"💰 Gestión Costos"</span></li>
+                <li>En la tabla de precios, haz clic en <span class="highlight">"✏️ Editar Precios"</span></li>
+                <li><strong>Edita los precios</strong> directamente en los campos de entrada</li>
+                <li><strong>Ajusta el stock mínimo</strong> para cada filtro según tus necesidades</li>
+                <li>Los cambios se <strong>guardan automáticamente</strong> al modificar cada campo</li>
+                <li>Usa <span class="highlight">"💾 Guardar Todos"</span> para confirmar y actualizar vistas</li>
+                <li>Exporta los datos con <span class="highlight">"📊 Exportar CSV"</span> para análisis externos</li>
+            </ol>
+        </div>
+
+        <div style="background: rgba(0,0,0,0.2); padding: 20px; border-radius: 10px; margin: 30px 0;">
+            <h3>💡 Consejos de Precios Incluidos:</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; text-align: left;">
+                <div>
+                    <strong>🛢️ Filtros de Aceite:</strong><br>
+                    €10-20 según calidad
+                </div>
+                <div>
+                    <strong>🌬️ Filtros de Aire:</strong><br>
+                    €15-30 (deportivos más caros)
+                </div>
+                <div>
+                    <strong>🏠 Filtros de Habitáculo:</strong><br>
+                    €20-35 (carbón activo premium)
+                </div>
+                <div>
+                    <strong>🔧 Pastillas de Freno:</strong><br>
+                    €30-60 según vehículo
+                </div>
+            </div>
+        </div>
+
+        <div style="background: rgba(39, 174, 96, 0.2); padding: 20px; border-radius: 10px; margin: 30px 0;">
+            <h3>✨ Características Técnicas:</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; text-align: left;">
+                <div>
+                    <strong>💾 Persistencia:</strong>
+                    <ul style="margin: 5px 0; padding-left: 20px;">
+                        <li>Guardado en localStorage</li>
+                        <li>Sincronización automática</li>
+                        <li>Backup de seguridad</li>
+                    </ul>
+                </div>
+                <div>
+                    <strong>🎨 Interfaz:</strong>
+                    <ul style="margin: 5px 0; padding-left: 20px;">
+                        <li>Tabla editable intuitiva</li>
+                        <li>Feedback visual inmediato</li>
+                        <li>Validación de datos</li>
+                    </ul>
+                </div>
+                <div>
+                    <strong>📊 Exportación:</strong>
+                    <ul style="margin: 5px 0; padding-left: 20px;">
+                        <li>Formato CSV estándar</li>
+                        <li>Datos completos incluidos</li>
+                        <li>Compatible con Excel</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <a href="filtros.html" class="demo-button edit-button">✏️ Probar Editor de Precios</a>
+            <a href="filtros.html" class="demo-button export-button">💰 Ver Gestión Costos</a>
+            <a href="index.html" class="demo-button main-button">🏠 Dashboard Principal</a>
+        </div>
+
+        <div style="margin-top: 30px; font-size: 0.9em; opacity: 0.8;">
+            🎉 <strong>¡Editor de precios completamente funcional!</strong> Ahora puedes gestionar todos los precios de forma profesional y exportar los datos para análisis externos.
+        </div>
+    </div>
+</body>
+</html>
