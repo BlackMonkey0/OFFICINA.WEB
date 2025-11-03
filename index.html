@@ -35,6 +35,9 @@
 
         <main class="main-grid">
             <section class="left-col">
+                <div style="margin-bottom: 16px;">
+                    <button onclick="openAddMaterialModal({})" class="primary-button" data-i18n="btn_add_new_material">Añadir Nuevo Material</button>
+                </div>
                 <table>
             <tr>
                 <th data-i18n="th_material">Material</th>
@@ -54,7 +57,7 @@
                 <td id="stock-guantes">0</td>
                 <td>
                     <button onclick="reducirStock('stock-guantes')" data-i18n="btn_usar">Usar</button>
-                    <button onclick="añadirStock('stock-guantes')" data-i18n="btn_añadir">Añadir</button>
+                    <button onclick="openAddMaterialModal({referencia:'GUANTES',tipo:'guantes',cantidad:1})" data-i18n="btn_añadir">Añadir</button>
                 </td>
             </tr>
             <tr>
@@ -62,7 +65,7 @@
                 <td id="stock-escobillas">0</td>
                 <td>
                     <button onclick="reducirStock('stock-escobillas')" data-i18n="btn_usar">Usar</button>
-                    <button onclick="añadirStock('stock-escobillas')" data-i18n="btn_añadir">Añadir</button>
+                    <button onclick="openAddMaterialModal({referencia:'ESCOBILLAS',tipo:'escobillas',cantidad:1})" data-i18n="btn_añadir">Añadir</button>
                 </td>
             </tr>
             <tr>
@@ -70,7 +73,7 @@
                 <td id="stock-baterias">1</td>
                 <td>
                     <button onclick="reducirStock('stock-baterias')" data-i18n="btn_usar">Usar</button>
-                    <button onclick="añadirStock('stock-baterias')" data-i18n="btn_añadir">Añadir</button>
+                    <button onclick="openAddMaterialModal({referencia:'BATERIAS',tipo:'baterias',cantidad:1})" data-i18n="btn_añadir">Añadir</button>
                 </td>
             </tr>
             <tr>
@@ -78,15 +81,7 @@
                 <td id="stock-antigelo">2L</td>
                 <td>
                     <button onclick="reducirStock('stock-antigelo')" data-i18n="btn_usar">Usar</button>
-                    <button onclick="añadirStock('stock-antigelo')" data-i18n="btn_añadir">Añadir</button>
-                </td>
-            </tr>
-                     <tr>
-                <td data-i18n="material_olio">Aceite</td>
-                <td id="stock-olio">20L</td>
-                <td>
-                    <button onclick="reducirStock('stock-antigelo')" data-i18n="btn_usar">Usar</button>
-                    <button onclick="añadirStock('stock-antigelo')" data-i18n="btn_añadir">Añadir</button>
+                    <button onclick="openAddMaterialModal({referencia:'ANTIGELO',tipo:'antigelo',cantidad:1})" data-i18n="btn_añadir">Añadir</button>
                 </td>
             </tr>
             <tr>
@@ -94,7 +89,7 @@
                 <td id="stock-desgrasante">3L</td>
                 <td>
                     <button onclick="reducirStock('stock-desgrasante')" data-i18n="btn_usar">Usar</button>
-                    <button onclick="añadirStock('stock-desgrasante')" data-i18n="btn_añadir">Añadir</button>
+                    <button onclick="openAddMaterialModal({referencia:'DESGRASANTE',tipo:'desgrasante',cantidad:1})" data-i18n="btn_añadir">Añadir</button>
                 </td>
             </tr>
             <tr>
@@ -102,7 +97,7 @@
                 <td id="stock-cerraduras">5 (8092332415)</td>
                 <td>
                     <button onclick="reducirStock('stock-cerraduras')" data-i18n="btn_usar">Usar</button>
-                    <button onclick="añadirStock('stock-cerraduras')" data-i18n="btn_añadir">Añadir</button>
+                    <button onclick="openAddMaterialModal({referencia:'CERRADURAS',tipo:'cerraduras',cantidad:1})" data-i18n="btn_añadir">Añadir</button>
                 </td>
             </tr>
             <tr>
@@ -110,7 +105,7 @@
                 <td id="stock-portavacas">5</td>
                 <td>
                     <button onclick="reducirStock('stock-portavacas')" data-i18n="btn_usar">Usar</button>
-                    <button onclick="añadirStock('stock-portavacas')" data-i18n="btn_añadir">Añadir</button>
+                    <button onclick="openAddMaterialModal({referencia:'PORTAVACAS',tipo:'portavacas',cantidad:1})" data-i18n="btn_añadir">Añadir</button>
                 </td>
             </tr>
             <tr>
@@ -118,7 +113,7 @@
                 <td id="stock-portaescaleras">5</td>
                 <td>
                     <button onclick="reducirStock('stock-portaescaleras')" data-i18n="btn_usar">Usar</button>
-                    <button onclick="añadirStock('stock-portaescaleras')" data-i18n="btn_añadir">Añadir</button>
+                    <button onclick="openAddMaterialModal({referencia:'PORTA_ESCALERAS',tipo:'porta_escaleras',cantidad:1})" data-i18n="btn_añadir">Añadir</button>
                 </td>
             </tr>
             <tr>
@@ -126,15 +121,7 @@
                 <td id="stock-panledo">1</td>
                 <td>
                     <button onclick="reducirStock('stock-panledo')" data-i18n="btn_usar">Usar</button>
-                    <button onclick="añadirStock('stock-panledo')" data-i18n="btn_añadir">Añadir</button>
-                </td>
-            </tr>
-            <tr>
-                <td data-i18n="material_pastillas_freno">Pastillas de freno</td>
-                <td id="stock-pastillas_freno">0</td>
-                <td>
-                    <button onclick="reducirStock('stock-pastillas_freno')" data-i18n="btn_usar">Usar</button>
-                    <button onclick="añadirStock('stock-pastillas_freno')" data-i18n="btn_añadir">Añadir</button>
+                    <button onclick="openAddMaterialModal({referencia:'PANLEDO',tipo:'panledo',cantidad:1})" data-i18n="btn_añadir">Añadir</button>
                 </td>
             </tr>
             <tr>
@@ -142,7 +129,7 @@
                 <td id="stock-scaffali">0</td>
                 <td>
                     <button onclick="reducirStock('stock-scaffali')" data-i18n="btn_usar">Usar</button>
-                    <button onclick="añadirStock('stock-scaffali')" data-i18n="btn_añadir">Añadir</button>
+                    <button onclick="openAddMaterialModal({referencia:'SCAFFALI',tipo:'estanterias',cantidad:1})" data-i18n="btn_añadir">Añadir</button>
                 </td>
             </tr>
             <tr>
@@ -150,7 +137,7 @@
                 <td id="stock-lamparas">0</td>
                 <td>
                     <button onclick="reducirStock('stock-lamparas')" data-i18n="btn_usar">Usar</button>
-                    <button onclick="añadirStock('stock-lamparas')" data-i18n="btn_añadir">Añadir</button>
+                    <button onclick="openAddMaterialModal({referencia:'LAMPARAS_H1_H7',tipo:'lamparas',cantidad:1})" data-i18n="btn_añadir">Añadir</button>
                 </td>
             </tr>
             <tr>
@@ -158,7 +145,7 @@
                 <td id="stock-dot4">0</td>
                 <td>
                     <button onclick="reducirStock('stock-dot4')" data-i18n="btn_usar">Usar</button>
-                    <button onclick="añadirStock('stock-dot4')" data-i18n="btn_añadir">Añadir</button>
+                    <button onclick="openAddMaterialModal({referencia:'DOT-4',tipo:'dot4',cantidad:1})" data-i18n="btn_añadir">Añadir</button>
                 </td>
             </tr>
             <tr>
@@ -166,7 +153,7 @@
                 <td id="stock-limpiacristales">0</td>
                 <td>
                     <button onclick="reducirStock('stock-limpiacristales')" data-i18n="btn_usar">Usar</button>
-                    <button onclick="añadirStock('stock-limpiacristales')" data-i18n="btn_añadir">Añadir</button>
+                    <button onclick="openAddMaterialModal({referencia:'LIMPIACRISTALES',tipo:'limpiacristales',cantidad:1})" data-i18n="btn_añadir">Añadir</button>
                 </td>
             </tr>
             <tr>
@@ -174,7 +161,7 @@
                 <td id="stock-limpiacontactos">0</td>
                 <td>
                     <button onclick="reducirStock('stock-limpiacontactos')" data-i18n="btn_usar">Usar</button>
-                    <button onclick="añadirStock('stock-limpiacontactos')" data-i18n="btn_añadir">Añadir</button>
+                    <button onclick="openAddMaterialModal({referencia:'LIMPIACONTACTOS',tipo:'limpiacontactos',cantidad:1})" data-i18n="btn_añadir">Añadir</button>
                 </td>
             </tr>
             <tr>
@@ -182,7 +169,7 @@
                 <td id="stock-limpiafrenos">0</td>
                 <td>
                     <button onclick="reducirStock('stock-limpiafrenos')" data-i18n="btn_usar">Usar</button>
-                    <button onclick="añadirStock('stock-limpiafrenos')" data-i18n="btn_añadir">Añadir</button>
+                    <button onclick="openAddMaterialModal({referencia:'LIMPIAFRENOS',tipo:'limpiafrenos',cantidad:1})" data-i18n="btn_añadir">Añadir</button>
                 </td>
             </tr>
                 </table>
@@ -246,6 +233,62 @@
                     <div><strong data-i18n="label_total_materiales">Total materiales: </strong><span id="total-materiales">0</span></div>
                     <canvas id="materials-chart" width="260" height="260" style="background:transparent; border-radius:8px; margin-top:12px;"></canvas>
                     <div id="materials-legend" style="color:white; text-align:left; margin-top:8px;"></div>
+                </div>
+
+                <!-- Quick Add / Scanner controls moved to main page -->
+                <div class="stats-card" style="margin-top:12px; text-align:center;">
+                    <h3>Añadir / Escanear</h3>
+                    <div style="display:flex; gap:8px; justify-content:center; margin-top:8px;">
+                        <button id="main-add-material" onclick="openAddMaterialModal()">Añadir material</button>
+                        <button id="main-open-scanner" onclick="openScannerModal()">QR / Escanear</button>
+                    </div>
+                </div>
+
+                <!-- Add Material Modal (moved to main page) -->
+                <div id="add-material-modal" class="modal" style="display:none;">
+                    <div class="modal-content">
+                        <h3>Añadir material</h3>
+                        <form id="add-material-form">
+                            <label>Tipo:
+                                <select id="add-material-tipo">
+                                    <option value="aceite">Aceite</option>
+                                    <option value="aire">Aire</option>
+                                    <option value="habitaculo">Habitáculo</option>
+                                    <option value="otros">Otros</option>
+                                </select>
+                            </label>
+                            <label>Referencia:
+                                <input id="add-material-ref" type="text" />
+                            </label>
+                            <label>Cantidad:
+                                <input id="add-material-cantidad" type="number" min="1" value="1" />
+                            </label>
+                            <label>Marca:
+                                <select id="add-material-marca"><option value="">(sin marca)</option></select>
+                            </label>
+                            <label>Modelo:
+                                <select id="add-material-modelo"><option value="">(sin modelo)</option></select>
+                            </label>
+                            <div class="modal-actions">
+                                <button type="button" onclick="submitAddMaterialForm()">Guardar</button>
+                                <button type="button" onclick="closeAddMaterialModal()">Cancelar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Scanner Modal (moved to main page) -->
+                <div id="scanner-modal" class="modal" style="display:none;">
+                    <div class="modal-content" style="max-width:800px;">
+                        <h3>Escanear código (QR / Código de barras)</h3>
+                        <video id="scanner-video" autoplay playsinline style="width:100%; max-height:360px; background:#000;"></video>
+                        <canvas id="scanner-canvas" style="display:none;"></canvas>
+                        <div style="margin-top:8px; display:flex; gap:8px; justify-content:flex-end;">
+                            <button type="button" onclick="captureScannerFrame()">Tomar foto</button>
+                            <button type="button" onclick="closeScannerModal()">Cerrar</button>
+                        </div>
+                        <p id="scanner-status" style="margin-top:8px; font-size:0.9em; color:#333;"></p>
+                    </div>
                 </div>
 
                 <div id="admin-area" class="stats-card" style="margin-top:14px;">
@@ -340,8 +383,8 @@
         </div>
     </div>
 
+    <!-- jsQR fallback for QR decoding (used by scanner) -->
+    <script src="https://cdn.jsdelivr.net/npm/jsqr/dist/jsQR.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
-
-
