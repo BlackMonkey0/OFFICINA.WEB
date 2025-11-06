@@ -219,6 +219,45 @@ button:focus {
 /* Ensure admin area buttons stack and don't overflow */
 .stats-card button { display:block; width:100%; margin:6px 0; }
 
+/* Navigation styles */
+.pages-nav {
+    background: rgba(0,0,0,0.15);
+    border-radius: 8px;
+    padding: 16px;
+    margin: 16px 0;
+}
+
+.pages-nav h3 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    color: #fff;
+    text-align: left;
+}
+
+.nav-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 8px;
+}
+
+.nav-button {
+    text-decoration: none;
+}
+
+.nav-button button {
+    width: 100%;
+    text-align: center;
+    background-color: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    transition: all 0.3s ease;
+}
+
+.nav-button button:hover {
+    background-color: rgba(255,255,255,0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
 .saved-notes .note-item {
     background-color: #fff;
     margin: 10px 0;

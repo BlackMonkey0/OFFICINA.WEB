@@ -1,4 +1,73 @@
 // script.js
+// ==== Storage Manager para gestión robusta del almacenamiento local ====
+const StorageManager = {
+    isAvailable: function() {
+        const test = 'test';
+        try {
+            localStorage.setItem(test, test);
+            localStorage.removeItem(test);
+            return true;
+        } catch(e) {
+            console.warn('localStorage no disponible:', e);
+            return false;
+        }
+    },
+
+    getItem: function(key, defaultValue = null) {
+        try {
+            const item = localStorage.getItem(key);
+            return item ? JSON.parse(item) : defaultValue;
+        } catch(e) {
+            console.warn(`Error leyendo ${key}:`, e);
+            return defaultValue;
+        }
+    },
+
+    setItem: function(key, value) {
+        try {
+            localStorage.setItem(key, JSON.stringify(value));
+            // Dispara evento para sincronizar otras pestañas
+            window.dispatchEvent(new StorageEvent('storage', {
+                key: key,
+                newValue: JSON.stringify(value),
+                url: window.location.href
+            }));
+            return true;
+        } catch(e) {
+            console.error(`Error guardando ${key}:`, e);
+            alert('Error guardando datos. Si usas modo incógnito/privado, los cambios no se guardarán.');
+            return false;
+        }
+    },
+
+    removeItem: function(key) {
+        try {
+            localStorage.removeItem(key);
+            return true;
+        } catch(e) {
+            console.warn(`Error borrando ${key}:`, e);
+            return false;
+        }
+    }
+};
+
+// Sincronización entre pestañas
+window.addEventListener('storage', function(e) {
+    if (e.key === 'inventario_filtros') {
+        console.log('Inventario actualizado en otra pestaña');
+        updateTotalsAndChart();
+    }
+});
+
+// Escuchar eventos de sincronización
+window.addEventListener('storage-sync', function(e) {
+    const { key, value } = e.detail;
+    if (key === 'inventario_filtros') {
+        console.log('Inventario actualizado desde otro PC');
+        updateTotalsAndChart();
+    }
+});
+
 // ==== INVENTARIO INICIAL (Añade nuevos ítems aquí) ====
 // Si quieres que la aplicación venga con inventario pre-poblado, añade objetos
 // al array DEFAULT_INVENTARIO abajo. Cada objeto debe tener la forma:
@@ -33,10 +102,17 @@ DEFAULT_INVENTARIO.push(
 
 function initDefaultInventory() {
     try {
-        const existing = localStorage.getItem('inventario_filtros');
+        // Verificar si localStorage está disponible
+        if (!StorageManager.isAvailable()) {
+            console.error('localStorage no disponible - los datos no persistirán');
+            return;
+        }
+        
+        const existing = StorageManager.getItem('inventario_filtros');
         if (!existing) {
-            localStorage.setItem('inventario_filtros', JSON.stringify(DEFAULT_INVENTARIO));
-            console.log('initDefaultInventory: inventario inicial creado desde DEFAULT_INVENTARIO');
+            if (StorageManager.setItem('inventario_filtros', DEFAULT_INVENTARIO)) {
+                console.log('initDefaultInventory: inventario inicial creado desde DEFAULT_INVENTARIO');
+            }
         }
     } catch (e) {
         console.error('Error inicializando inventario por defecto', e);
@@ -501,6 +577,162 @@ function closeAddMaterialModal() {
     const form = document.getElementById('add-material-form'); if (form) form.reset();
 }
 
+// Ensure the add-material modal exists on pages that don't include it (useful when opening from other HTML files)
+function ensureAddMaterialModalExists() {
+    if (document.getElementById('add-material-modal')) return;
+    const html = `
+    <div id="add-material-modal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <h3 data-i18n="add_material_title">Añadir material</h3>
+            <form id="add-material-form">
+                <label data-i18n="label_tipo">Tipo:
+                    <select id="add-material-tipo">
+                        <option value="aceite">Aceite</option>
+                        <option value="aire">Aire</option>
+                        <option value="habitaculo">Habitáculo</option>
+                        <option value="otros">Otros</option>
+                    </select>
+                </label>
+                <label data-i18n="label_ref">Referencia:
+                    <input id="add-material-ref" type="text" />
+                </label>
+                <label data-i18n="th_cantidad">Cantidad:
+                    <input id="add-material-cantidad" type="number" min="1" value="1" />
+                </label>
+                <label>Marca:
+                    <select id="add-material-marca"><option value="">(sin marca)</option></select>
+                </label>
+                <label>Modelo:
+                    <select id="add-material-modelo"><option value="">(sin modelo)</option></select>
+                </label>
+                <div class="modal-actions">
+                    <button type="button" onclick="submitAddMaterialForm()" data-i18n="btn_guardar">Guardar</button>
+                    <button type="button" onclick="closeAddMaterialModal()" data-i18n="btn_cancelar">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    `;
+    const wrapper = document.createElement('div');
+    wrapper.innerHTML = html;
+    document.body.appendChild(wrapper.firstElementChild);
+    // populate marca/modelo after adding
+    populateMarcaSelect('add-material-marca', 'add-material-modelo');
+}
+
+// Inject a small "Add material" button into every page that includes script.js so you can open the modal from any HTML
+function injectGlobalAddButtons() {
+    try {
+        // avoid duplicating
+        if (document.getElementById('global-add-material-btn') || document.getElementById('main-add-material')) return;
+        const container = document.querySelector('.container') || document.body;
+        const wrapper = document.createElement('div');
+        wrapper.style.marginBottom = '12px';
+        wrapper.style.textAlign = 'center';
+        const btn = document.createElement('button');
+        btn.id = 'global-add-material-btn';
+        btn.type = 'button';
+        btn.innerText = t('btn_add_new_material', 'Añadir Nuevo Material');
+        btn.onclick = function() {
+            ensureAddMaterialModalExists();
+            openAddMaterialModal({});
+        };
+        wrapper.appendChild(btn);
+        // insert at top of container
+        if (container.firstElementChild) container.insertBefore(wrapper, container.firstElementChild);
+        else container.appendChild(wrapper);
+    } catch (e) {
+        console.error('injectGlobalAddButtons error', e);
+    }
+}
+
+// Función para migrar datos antiguos al nuevo formato
+function migrateOldData() {
+    try {
+        // Lista de claves a migrar
+        const keysToMigrate = [
+            'inventario_filtros',
+            'notas',
+            'usosFiltros',
+            'movements',
+            'users',
+            'current_user',
+            'current_role',
+            'preferredLang'
+        ];
+
+        keysToMigrate.forEach(key => {
+            try {
+                const rawData = localStorage.getItem(key);
+                if (rawData) {
+                    // Intentar parsear y re-guardar con StorageManager
+                    const parsedData = JSON.parse(rawData);
+                    StorageManager.setItem(key, parsedData);
+                    console.log(`Migrated ${key} successfully`);
+                }
+            } catch (e) {
+                console.warn(`Error migrating ${key}:`, e);
+            }
+        });
+
+        return true;
+    } catch (e) {
+        console.error('Error during migration:', e);
+        return false;
+    }
+}
+
+// Función de diagnóstico del almacenamiento
+function diagnosticStorage() {
+    const results = {
+        isAvailable: StorageManager.isAvailable(),
+        inventario: StorageManager.getItem('inventario_filtros', null),
+        browserInfo: {
+            userAgent: navigator.userAgent,
+            isPrivateMode: !StorageManager.isAvailable(),
+            storageQuota: null
+        }
+    };
+
+    // Intentar obtener cuota de almacenamiento si está disponible
+    if (navigator.storage && navigator.storage.estimate) {
+        navigator.storage.estimate().then(estimate => {
+            results.browserInfo.storageQuota = {
+                usage: estimate.usage,
+                quota: estimate.quota,
+                percentageUsed: Math.round((estimate.usage / estimate.quota) * 100)
+            };
+        });
+    }
+
+    console.log('Diagnóstico de almacenamiento:', results);
+    return results;
+}
+
+// Run injector, migration and diagnostic on DOM ready
+document.addEventListener('DOMContentLoaded', function() {
+    // Intentar migrar datos antiguos primero
+    migrateOldData();
+    
+    injectGlobalAddButtons();
+    
+    // Ejecutar diagnóstico y mostrar alerta si hay problemas
+    const diagnostic = diagnosticStorage();
+    if (!diagnostic.isAvailable) {
+        const alertDiv = document.createElement('div');
+        alertDiv.style.cssText = 'position:fixed; top:0; left:0; right:0; background:#ff6b6b; color:white; padding:10px; text-align:center; z-index:9999;';
+        alertDiv.innerHTML = `
+            ⚠️ ADVERTENCIA: El almacenamiento local no está disponible. 
+            Los cambios no se guardarán entre sesiones. 
+            Si usas modo privado/incógnito, cambia a modo normal.
+            <button onclick="this.parentElement.remove()" style="margin-left:10px;background:white;color:#ff6b6b;border:none;padding:5px 10px;border-radius:4px;">
+                Cerrar
+            </button>
+        `;
+        document.body.appendChild(alertDiv);
+    }
+});
+
 function submitAddMaterialForm() {
     const tipo = document.getElementById('add-material-tipo').value || 'otros';
     const referencia = (document.getElementById('add-material-ref').value || '').trim();
@@ -906,6 +1138,12 @@ function performProtectedDelete(storageKey) {
     // --- Traducciones y selector de idioma ---
 const translations = {
     es: {
+        nav_pages: 'Páginas',
+        nav_filtros: 'Gestión de Filtros',
+        nav_tabla_codigos: 'Tabla de Códigos',
+        nav_actualizar: 'Actualizar Inventario',
+        nav_diagnostic: 'Diagnóstico',
+        nav_advanced: 'Funciones Avanzadas',
         btn_add_new_material: 'Añadir Nuevo Material',
         add_material_title: 'Añadir Material al Inventario',
         subtitle: 'Gestión de Stock del Taller',
@@ -1020,6 +1258,12 @@ const translations = {
         ,msg_stockagotado_registro_guardado: 'Stock de filtros agotado. Registro guardado pero stock no reducido.'
     },
     en: {
+        nav_pages: 'Pages',
+        nav_filtros: 'Filter Management',
+        nav_tabla_codigos: 'Codes Table',
+        nav_actualizar: 'Update Inventory',
+        nav_diagnostic: 'Diagnostics',
+        nav_advanced: 'Advanced Features',
         btn_add_new_material: 'Add New Material',
         add_material_title: 'Add Material to Inventory',
         subtitle: 'Workshop Stock Management',
@@ -1134,6 +1378,12 @@ const translations = {
         ,msg_stockagotado_registro_guardado: 'Filter stock exhausted. Record saved but stock not reduced.'
     },
     it: {
+        nav_pages: 'Pagine',
+        nav_filtros: 'Gestione Filtri',
+        nav_tabla_codigos: 'Tabella Codici',
+        nav_actualizar: 'Aggiorna Inventario',
+        nav_diagnostic: 'Diagnostica',
+        nav_advanced: 'Funzioni Avanzate',
         btn_add_new_material: 'Aggiungi Nuovo Materiale',
         add_material_title: 'Aggiungi Materiale all\'Inventario',
         subtitle: 'Gestione Scorte Officina',

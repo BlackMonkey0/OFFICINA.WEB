@@ -1,0 +1,12 @@
+{
+  "name": "taller-stock",
+  "version": "1.0.0",
+  "description": "Sistema de gestión de stock para taller",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "ws": "^8.2.3"
+  }
+}

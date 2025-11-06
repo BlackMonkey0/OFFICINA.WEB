@@ -1,0 +1,22 @@
+.sync-status {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    display: none;
+}
+
+.sync-connected .sync-status {
+    background-color: #4CAF50;
+    display: block;
+}
+
+.sync-disconnected .sync-status {
+    background-color: #f44336;
+    display: block;
+}
+
+/* Agregar estilos existentes si es necesario */

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Stock - Alquiber Renting Flexible</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="sync-styles.css">
 </head>
 <body>
     <div class="container">
@@ -32,6 +33,28 @@
                 </div>
             </div>
         </header>
+
+        <!-- Navegación de páginas -->
+        <nav class="pages-nav" style="margin: 16px 0; padding: 16px; background: rgba(0,0,0,0.1); border-radius: 8px;">
+            <h3 data-i18n="nav_pages" style="margin-top: 0;">Páginas</h3>
+            <div class="nav-buttons" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px;">
+                <a href="filtros.html" class="nav-button">
+                    <button style="width: 100%;" data-i18n="nav_filtros">Gestión de Filtros</button>
+                </a>
+                <a href="tabla_codigos.html" class="nav-button">
+                    <button style="width: 100%;" data-i18n="nav_tabla_codigos">Tabla de Códigos</button>
+                </a>
+                <a href="actualizar_inventario.html" class="nav-button">
+                    <button style="width: 100%;" data-i18n="nav_actualizar">Actualizar Inventario</button>
+                </a>
+                <a href="diagnostico_pdf.html" class="nav-button">
+                    <button style="width: 100%;" data-i18n="nav_diagnostic">Diagnóstico</button>
+                </a>
+                <a href="funcionalidades_avanzadas.html" class="nav-button">
+                    <button style="width: 100%;" data-i18n="nav_advanced">Funciones Avanzadas</button>
+                </a>
+            </div>
+        </nav>
 
         <main class="main-grid">
             <section class="left-col">
@@ -386,5 +409,10 @@
     <!-- jsQR fallback for QR decoding (used by scanner) -->
     <script src="https://cdn.jsdelivr.net/npm/jsqr/dist/jsQR.js"></script>
     <script src="script.js"></script>
+    <script src="sync.js"></script>
+    <div class="sync-status">
+        <span id="sync-connected" data-i18n="sync_connected">Sincronización activa</span>
+        <span id="sync-disconnected" data-i18n="sync_disconnected" style="display:none">Sin sincronización</span>
+    </div>
 </body>
 </html>
