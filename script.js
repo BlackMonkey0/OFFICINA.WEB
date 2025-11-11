@@ -1536,6 +1536,34 @@ function applyTranslations(lang) {
             }
         }
     });
+    // Safety: ensure some critical keys are explicitly set (helps catch odd cases like unexpected content)
+    ensureCriticalTranslations(lang);
+}
+
+// Force-apply translations for critical UI elements and log diagnostics
+function ensureCriticalTranslations(lang) {
+    try {
+        const dict = translations[lang] || translations['es'];
+        const criticalKeys = ['btn_usar', 'btn_añadir', 'btn_add_new_material'];
+        criticalKeys.forEach(key => {
+            const els = document.querySelectorAll(`[data-i18n="${key}"]`);
+            els.forEach(el => {
+                const before = el.textContent;
+                const after = dict[key] || key;
+                if (el.tagName.toLowerCase() === 'label') {
+                    // keep inner inputs
+                    const inner = el.innerHTML.split('<br>');
+                    inner[0] = after;
+                    el.innerHTML = inner.join('<br>');
+                } else {
+                    el.textContent = after;
+                }
+                if (before !== after) console.debug(`i18n: '${key}' changed from '${before}' to '${after}' for lang='${lang}'`);
+            });
+        });
+    } catch (e) {
+        console.error('Error enforcing critical translations', e);
+    }
 }
 
 function changeLanguage(lang) {
