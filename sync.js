@@ -10,10 +10,11 @@ class SyncManager {
 
     initWebSocket() {
         try {
-            this.ws = new WebSocket('ws://localhost:3000');
+            // Cambia la URL por tu canal público de WebSocket (ejemplo: wss://ws.websocket.in/tu-canal)
+            this.ws = new WebSocket('wss://ws.websocket.in/stock-taller?channel=global-sync');
 
             this.ws.onopen = () => {
-                console.log('Conectado al servidor de sincronización');
+                console.log('Conectado al servidor de sincronización GLOBAL');
                 this.reconnectAttempts = 0;
                 document.body.classList.add('sync-connected');
                 document.body.classList.remove('sync-disconnected');
@@ -77,6 +78,9 @@ class SyncManager {
                 value: value,
                 source: this.getClientId()
             }));
+        } else {
+            // Si no está conectado, intenta reconectar y reintentar
+            this.tryReconnect();
         }
     }
 
